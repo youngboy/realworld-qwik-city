@@ -8,6 +8,9 @@ export interface ActionsProps {
 
 export const Actions = component$((props: ActionsProps) => {
   const article = props.article
+  if (!article || !article.author) {
+    return null
+  }
   return (
     <Host>
       <div class="article-meta">

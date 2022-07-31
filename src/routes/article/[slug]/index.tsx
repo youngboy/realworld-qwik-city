@@ -46,7 +46,7 @@ export default component$(() => {
         // Guess it is not proper way to assign every props
         // it will causing all state being serialized, then losing tree-shake ability ?
         Object.assign(article, articleResource)
-        const markup = marked(article.body)
+        const markup = article.body ? marked(article.body) : ''
 
         return (
           <div class="article-page">
@@ -62,7 +62,7 @@ export default component$(() => {
                 <div class="col-md-12">
                   <div innerHTML={markup}></div>
                   <ul class="tag-list">
-                    {article.tagList.map((tag) => (
+                    {(article.tagList || []).map((tag) => (
                       <li class="tag-default tag-pill tag-outline">{tag}</li>
                     ))}
                   </ul>

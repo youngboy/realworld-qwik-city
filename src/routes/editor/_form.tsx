@@ -61,7 +61,7 @@ export const Form = component$((props: FormProps) => {
                     type="text"
                     class="form-control"
                     name="tagList"
-                    value={props.article.tagList.join(' ')}
+                    value={(props.article.tagList || []).join(' ')}
                     placeholder="Enter tags"
                   />
                   <div class="tag-list"></div>

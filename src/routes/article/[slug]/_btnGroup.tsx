@@ -15,7 +15,7 @@ export const BtnGroup = component$(
       return null
     }
     const slug = props.article.slug
-    const canModify = props.article.author.username === session.user?.username
+    const canModify = props.article.author?.username === session.user?.username
     const deletePost = $(() => {
       del(`/article/${slug}/index.json`).then(() => {
         location.href = "/"
@@ -44,13 +44,13 @@ export const BtnGroup = component$(
           <>
             <button
               class={`btn btn-sm ${
-                props.article.author.following ? "btn-secondary" : "btn-outline-secondary"
+                props.article.author?.following ? "btn-secondary" : "btn-outline-secondary"
               }`}
               onClick$={() =>
                 toggleFollow.apply(null, [props.article, session.user?.token])
               }>
               <i class="ion-plus-round"></i>
-              &nbsp; {props.article.author.following ? 'Unfollow' : 'Follow'} {props.article.author.username}
+              &nbsp; {props.article.author?.following ? 'Unfollow' : 'Follow'} {props.article.author?.username}
             </button>
             <span>{' '}</span>
             <button

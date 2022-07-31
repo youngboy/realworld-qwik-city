@@ -41,7 +41,7 @@ export const Preview = component$((props: PreviewProps) => {
         <p>{article.description}</p>
         <span>Read more...</span>
         <ul class="tag-list">
-          {article.tagList.map((tag: any) => (
+          {(article.tagList || []).map((tag: any) => (
             <li class="tag-default tag-pill tag-outline">
               <a href={`/?tag=${tag}`}>{tag}</a>
             </li>

@@ -13,7 +13,9 @@ export const onGet: EndpointHandler = async ({
     response.redirect('/login', 302);
     return
   }
-  return {}
+  return {
+    user,
+  }
 }
 
 export const onPost: EndpointHandler = async ({ request, response }) => {
