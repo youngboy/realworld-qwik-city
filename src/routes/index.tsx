@@ -1,49 +1,49 @@
-import { component$, Host, Resource } from "@builder.io/qwik"
+import { component$, Host, Resource } from "@builder.io/qwik";
 import {
   useEndpoint,
   DocumentHead,
   EndpointHandler,
   useLocation,
-} from "@builder.io/qwik-city"
-import ArticleList from "~/components/article/list"
-import { Pagination } from "~/components/pagination"
-import Tabs, { TabsProps } from "~/components/tabs"
-import { components } from "~/libs/api-schema"
-import { getSession } from "~/libs/getSession"
-import { fetchArticles } from "./api/_fetchArticles"
+} from "@builder.io/qwik-city";
+import ArticleList from "~/components/article/list";
+import { Pagination } from "~/components/pagination";
+import Tabs, { TabsProps } from "~/components/tabs";
+import { components } from "~/libs/api-schema";
+import { getSession } from "~/libs/getSession";
+import { fetchArticles } from "./api/_fetchArticles";
 
 export interface EndpointData {
-  articles: components["schemas"]["Article"][]
-  pages: number
-  tags: string[]
-  user?: components["schemas"]["User"]
+  articles: components["schemas"]["Article"][];
+  pages: number;
+  tags: string[];
+  user?: components["schemas"]["User"];
 }
 
 export const onGet: EndpointHandler<EndpointData> = async ({ request }) => {
-  const url = new URL(request.url)
-  const { user } = getSession(request.headers.get("cookie"))
+  const url = new URL(request.url);
+  const { user } = getSession(request.headers.get("cookie"));
 
   const [{ articles, pages }, { tags }] = await Promise.all([
     fetchArticles(url.search, user?.token),
     fetch(`${url.origin}/api/tags.json`).then((r) => r.json()),
-  ])
+  ]);
 
   return {
     user,
     articles,
     pages,
     tags,
-  }
-}
+  };
+};
 
 export default component$(() => {
-  const resource = useEndpoint<typeof onGet>()
-  const location = useLocation()
+  const resource = useEndpoint<typeof onGet>();
+  const location = useLocation();
 
-  const currentPage = +location.query.page || 1
-  const currentTag = location.query.tag
-  const currentTab = location.query.tab || "all"
-  const linkBase = currentTag ? `/?tag=${currentTag}` : "/?"
+  const currentPage = +location.query.page || 1;
+  const currentTag = location.query.tag;
+  const currentTab = location.query.tab || "all";
+  const linkBase = currentTag ? `/?tag=${currentTag}` : "/?";
   return (
     <Host>
       <div class="home-page">
@@ -59,36 +59,35 @@ export default component$(() => {
             <Resource
               resource={resource}
               onResolved={(data) => {
-                const tabList: TabsProps['tabList'] = [
-                  !!data.user ? {
-                    title: 'Your Feed',
-                    href: '/?tab=feed',
-                    active: currentTab === 'feed'
-                  } : {
-                    title: 'Your Feed',
-                    href: '/login',
-                    active: false
-                  },
+                const tabList: TabsProps["tabList"] = [
+                  !!data.user
+                    ? {
+                        title: "Your Feed",
+                        href: "/?tab=feed",
+                        active: currentTab === "feed",
+                      }
+                    : {
+                        title: "Your Feed",
+                        href: "/login",
+                        active: false,
+                      },
                   {
-                    title: 'Global Feed',
-                    active: currentTab === 'all',
-                    href: '/?tab=all'
+                    title: "Global Feed",
+                    active: currentTab === "all",
+                    href: "/?tab=all",
                   },
-                ]
+                ];
                 if (currentTag) {
                   tabList.push({
                     title: currentTag,
                     href: `/?tag=${currentTag}`,
-                    active: true
-                  })
+                    active: true,
+                  });
                 }
                 return (
                   <>
                     <div class="col-md-9">
-                      <Tabs
-                        tabList={tabList}
-                        class="feed-toggle"
-                      />
+                      <Tabs tabList={tabList} class="feed-toggle" />
                       <ArticleList articles={data.articles || []} />
                       <Pagination
                         pages={data.pages}
@@ -114,16 +113,16 @@ export default component$(() => {
                       </div>
                     </div>
                   </>
-                )
+                );
               }}
             />
           </div>
         </div>
       </div>
     </Host>
-  )
-})
+  );
+});
 
 export const head: DocumentHead = {
   title: "Home -- Conduit",
-}
+};

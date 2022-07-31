@@ -1,15 +1,15 @@
-import { component$, Host, QRL } from "@builder.io/qwik"
-import { components } from "~/libs/api-schema"
+import { component$, Host, QRL } from "@builder.io/qwik";
+import { components } from "~/libs/api-schema";
 
 export interface CommentCardProps {
-  comment: components["schemas"]["Comment"]
-  user?: components["schemas"]["User"]
-  handleDelete: QRL<(commentId: number) => void>
+  comment: components["schemas"]["Comment"];
+  user?: components["schemas"]["User"];
+  handleDelete: QRL<(commentId: number) => void>;
 }
 // TODO: edit function in demo.realworld.io also not implement yet.
 
 export const CommentCard = component$((props: CommentCardProps) => {
-  const comment = props.comment
+  const comment = props.comment;
   return (
     <Host>
       <div class="card-block">
@@ -29,10 +29,13 @@ export const CommentCard = component$((props: CommentCardProps) => {
         {comment.author.username === props.user?.username && (
           <span class="mod-options">
             <i class="ion-edit"></i>
-            <i class="ion-trash-a" onClick$={() => props.handleDelete.apply(null, [comment.id])}></i>
+            <i
+              class="ion-trash-a"
+              onClick$={() => props.handleDelete.apply(null, [comment.id])}
+            ></i>
           </span>
         )}
       </div>
     </Host>
-  )
-})
+  );
+});

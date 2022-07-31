@@ -1,17 +1,17 @@
-import { component$, useStore, Host, $, useContext } from "@builder.io/qwik"
-import { components } from "~/libs/api-schema"
-import { SessionContext } from "~/libs/context"
-import { toggleFavorite } from "./service"
+import { component$, useStore, Host, $, useContext } from "@builder.io/qwik";
+import { components } from "~/libs/api-schema";
+import { SessionContext } from "~/libs/context";
+import { toggleFavorite } from "./service";
 
 export interface PreviewProps {
-  article: components["schemas"]["Article"]
+  article: components["schemas"]["Article"];
 }
 
 export const Preview = component$((props: PreviewProps) => {
-  const session = useContext(SessionContext)
+  const session = useContext(SessionContext);
   const article = useStore({
     ...props.article,
-  })
+  });
 
   return (
     <Host>
@@ -27,7 +27,9 @@ export const Preview = component$((props: PreviewProps) => {
         </div>
         {session.user && (
           <button
-            onClick$={() => toggleFavorite.apply(null, [article, session.user?.token])}
+            onClick$={() =>
+              toggleFavorite.apply(null, [article, session.user?.token])
+            }
             class={`btn btn-sm pull-xs-right ${
               article.favorited ? "btn-primary" : "btn-outline-primary"
             }`}
@@ -49,5 +51,5 @@ export const Preview = component$((props: PreviewProps) => {
         </ul>
       </a>
     </Host>
-  )
-})
+  );
+});

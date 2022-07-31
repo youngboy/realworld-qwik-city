@@ -1,28 +1,27 @@
 import { component$ } from "@builder.io/qwik";
 import { DocumentHead, EndpointHandler } from "@builder.io/qwik-city";
-import * as api from '~/libs/api';
+import * as api from "~/libs/api";
 import { getJwtString } from "~/libs/getJwt";
 
 export const onPost: EndpointHandler = async ({ request, response }) => {
   const formData = await request.formData();
-  const result = await api.post('users', {
-		user: {
-			email: formData.get('email'),
-			username: formData.get('username'),
-			password: formData.get('password')
-		}
+  const result = await api.post("users", {
+    user: {
+      email: formData.get("email"),
+      username: formData.get("username"),
+      password: formData.get("password"),
+    },
   });
 
   if (result.errors) {
-    response.status = 401
-		return { errors: result.errors };
-	}
+    response.status = 401;
+    return { errors: result.errors };
+  }
 
-	const jwt = getJwtString(result.user)
-  response.headers.set('Set-Cookie', `jwt=${jwt}; Path=/; HttpOnly`);
-  response.redirect('/', 302);
+  const jwt = getJwtString(result.user);
+  response.headers.set("Set-Cookie", `jwt=${jwt}; Path=/; HttpOnly`);
+  response.redirect("/", 302);
 };
-
 
 export default component$(() => {
   return (

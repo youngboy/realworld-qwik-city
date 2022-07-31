@@ -1,24 +1,25 @@
-import { component$ } from "@builder.io/qwik"
+import { component$ } from "@builder.io/qwik";
 
 export interface FormProps {
   article: {
-    title: string
-    description: string
-    body: string
-    tagList: string[]
-  }
-  method: string
+    title: string;
+    description: string;
+    body: string;
+    tagList: string[];
+  };
+  method: string;
 }
 
 export function getFormData(formData: FormData) {
   return {
-    title: formData.get('title'),
-    description: formData.get('description'),
-    body: formData.get('body'),
-    tagList: `${formData.get('tagList') || ''}`.split(' ')
-      .map(i => i.trim())
-      .filter(i => !!i),
-  }
+    title: formData.get("title"),
+    description: formData.get("description"),
+    body: formData.get("body"),
+    tagList: `${formData.get("tagList") || ""}`
+      .split(" ")
+      .map((i) => i.trim())
+      .filter((i) => !!i),
+  };
 }
 
 export const Form = component$((props: FormProps) => {
@@ -61,14 +62,12 @@ export const Form = component$((props: FormProps) => {
                     type="text"
                     class="form-control"
                     name="tagList"
-                    value={(props.article.tagList || []).join(' ')}
+                    value={(props.article.tagList || []).join(" ")}
                     placeholder="Enter tags"
                   />
                   <div class="tag-list"></div>
                 </fieldset>
-                <button
-                  class="btn btn-lg pull-xs-right btn-primary"
-                >
+                <button class="btn btn-lg pull-xs-right btn-primary">
                   Publish Article
                 </button>
               </fieldset>
@@ -77,5 +76,5 @@ export const Form = component$((props: FormProps) => {
         </div>
       </div>
     </div>
-  )
-})
+  );
+});

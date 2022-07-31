@@ -6,7 +6,7 @@ import { SessionContext } from "~/libs/context";
 export default component$(
   () => {
     const pathname = useLocation().pathname;
-    const session = useContext(SessionContext)
+    const session = useContext(SessionContext);
     return (
       <Host>
         <nav class="navbar navbar-light">
@@ -46,7 +46,10 @@ export default component$(
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href={`/profile/@${session.user.username}`} class="nav-link">
+                    <a
+                      href={`/profile/@${session.user.username}`}
+                      class="nav-link"
+                    >
                       {session.user.username}
                     </a>
                   </li>

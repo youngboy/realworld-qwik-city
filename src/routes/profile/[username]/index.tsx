@@ -1,7 +1,7 @@
-import ProfileComponent, { onProfileGet, profileHead } from './_share'
+import ProfileComponent, { onProfileGet, profileHead } from "./_share";
 
-export const onGet = onProfileGet
+export const onGet = onProfileGet;
 
-export default ProfileComponent
+export default ProfileComponent;
 
-export const head = profileHead
+export const head = profileHead;

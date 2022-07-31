@@ -1,35 +1,35 @@
 import { component$ } from "@builder.io/qwik";
 import { DocumentHead, EndpointHandler } from "@builder.io/qwik-city";
 import { getSession } from "~/libs/getSession";
-import * as api from '~/libs/api';
+import * as api from "~/libs/api";
 import { getJwtString } from "~/libs/getJwt";
 
 export const onGet: EndpointHandler = async ({ request, response }) => {
-  const { user } = getSession(request.headers.get('cookie'))
-  const isAuthenticated = !!user
+  const { user } = getSession(request.headers.get("cookie"));
+  const isAuthenticated = !!user;
   if (isAuthenticated) {
-    response.redirect('/', 302);
+    response.redirect("/", 302);
   }
 };
 
 export const onPost: EndpointHandler = async ({ request, response }) => {
   const formData = await request.formData();
-  const result = await api.post('users/login', {
-		user: {
-			email: formData.get('email'),
-			password: formData.get('password')
-		}
+  const result = await api.post("users/login", {
+    user: {
+      email: formData.get("email"),
+      password: formData.get("password"),
+    },
   });
 
   if (result.errors) {
-    response.status = 401
-		return { errors: result.errors };
-	}
+    response.status = 401;
+    return { errors: result.errors };
+  }
 
-	const jwt = getJwtString(result.user)
-  response.headers.set('Set-Cookie', `jwt=${jwt}; Path=/; HttpOnly`);
+  const jwt = getJwtString(result.user);
+  response.headers.set("Set-Cookie", `jwt=${jwt}; Path=/; HttpOnly`);
   // FIXME: tried response.redirect('/', 200), not work
-  response.redirect('/', 302);
+  response.redirect("/", 302);
 };
 
 export default component$(() => {
