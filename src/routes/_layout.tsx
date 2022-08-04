@@ -38,9 +38,7 @@ export default component$(() => {
         resource={resource}
         onResolved={(data) => {
           session.user = data?.user;
-          return (
-            <Header />
-          );
+          return <Header />;
         }}
       />
       <main>

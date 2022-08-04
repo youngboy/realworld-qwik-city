@@ -7,10 +7,10 @@ export default defineConfig(() => {
   return {
     plugins: [
       qwikCity({
-        routesDir: './src/routes'
+        routesDir: "./src/routes",
       }),
       qwikVite(),
-      tsconfigPaths()
+      tsconfigPaths(),
     ],
     clearScreen: false,
     optimizeDeps: {

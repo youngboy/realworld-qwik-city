@@ -5,8 +5,8 @@ import { qwikCity } from "@builder.io/qwik-city/middleware/express";
 import render from "./entry.ssr";
 
 // directories where the static assets are located
-const distDir = join(fileURLToPath(import.meta.url), '..', '..', 'dist');
-const buildDir = join(distDir, 'build');
+const distDir = join(fileURLToPath(import.meta.url), "..", "..", "dist");
+const buildDir = join(distDir, "build");
 
 const { router, notFound } = qwikCity(render);
 
@@ -17,7 +17,10 @@ const app = express();
 app.use(router);
 
 // static asset handlers
-app.use(`/build`, express.static(buildDir, { immutable: true, maxAge: '1y', index: false }));
+app.use(
+  `/build`,
+  express.static(buildDir, { immutable: true, maxAge: "1y", index: false })
+);
 app.use(express.static(distDir, { index: false }));
 
 // 404 handler

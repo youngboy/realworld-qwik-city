@@ -10,7 +10,7 @@ export const onGet: EndpointHandler = async ({ request, response }) => {
   if (isAuthenticated) {
     response.redirect("/", 302);
   }
-  return {}
+  return {};
 };
 
 export const onPost: EndpointHandler = async ({ request, response }) => {
