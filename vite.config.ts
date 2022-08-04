@@ -5,6 +5,16 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig(() => {
   return {
-    plugins: [qwikCity(), qwikVite(), tsconfigPaths()],
+    plugins: [
+      qwikCity({
+        routesDir: './src/routes'
+      }),
+      qwikVite(),
+      tsconfigPaths()
+    ],
+    clearScreen: false,
+    optimizeDeps: {
+      force: true,
+    },
   };
 });

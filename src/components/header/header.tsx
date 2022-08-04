@@ -1,6 +1,5 @@
 import { component$, Host, useContext } from "@builder.io/qwik";
-import { useLocation } from "@builder.io/qwik-city";
-import { components } from "~/libs/api-schema";
+import { useLocation, Link } from "@builder.io/qwik-city";
 import { SessionContext } from "~/libs/context";
 
 export default component$(
@@ -11,70 +10,70 @@ export default component$(
       <Host>
         <nav class="navbar navbar-light">
           <div class="container">
-            <a class="navbar-brand" href="/">
+            <Link class="navbar-brand" href="/">
               conduit
-            </a>
+            </Link>
             <ul class="nav navbar-nav pull-xs-right">
               <li class="nav-item">
-                <a
+                <Link
                   href="/"
                   class={{ "nav-link": true, active: pathname === "/" }}
                 >
                   Home
-                </a>
+                </Link>
               </li>
               {session.user ? (
                 <>
                   <li class="nav-item">
-                    <a
+                    <Link
                       href="/editor"
                       class={`nav-link ${
                         pathname.startsWith("/editor") ? "active" : ""
                       }`}
                     >
                       <i class="ion-compose"></i>&nbsp;New Article
-                    </a>
+                    </Link>
                   </li>
                   <li class="nav-item">
-                    <a
+                    <Link
                       class={`nav-link ${
                         pathname.startsWith("/settings") ? "active" : ""
                       }`}
                       href="/settings"
                     >
                       <i class="ion-gear-a"></i>&nbsp;Settings
-                    </a>
+                    </Link>
                   </li>
                   <li class="nav-item">
-                    <a
+                    <Link
                       href={`/profile/@${session.user.username}`}
                       class="nav-link"
                     >
                       {session.user.username}
-                    </a>
+                    </Link>
                   </li>
                 </>
               ) : (
                 <>
                   <li class="nav-item">
-                    <a
+                    <Link
                       class={`nav-link ${
                         pathname.startsWith("/login") ? "active" : ""
                       }`}
                       href="/login"
                     >
                       Sign in
-                    </a>
+                    </Link>
                   </li>
                   <li class="nav-item">
-                    <a
+                    <Link
                       class={`nav-link ${
                         pathname.startsWith("/register") ? "active" : ""
                       }`}
                       href="/register"
                     >
                       Sign up
-                    </a>
+                    </Link>
                   </li>
                 </>
               )}

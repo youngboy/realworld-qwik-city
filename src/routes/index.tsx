@@ -22,7 +22,6 @@ export interface EndpointData {
 export const onGet: EndpointHandler<EndpointData> = async ({ request }) => {
   const url = new URL(request.url);
   const { user } = getSession(request.headers.get("cookie"));
-
   const [{ articles, pages }, { tags }] = await Promise.all([
     fetchArticles(url.search, user?.token),
     fetch(`${url.origin}/api/tags.json`).then((r) => r.json()),
@@ -64,7 +63,7 @@ export default component$(() => {
                     ? {
                         title: "Your Feed",
                         href: "/?tab=feed",
-                        active: currentTab === "feed",
+                        active: !currentTag && currentTab === "feed",
                       }
                     : {
                         title: "Your Feed",
@@ -73,7 +72,7 @@ export default component$(() => {
                       },
                   {
                     title: "Global Feed",
-                    active: currentTab === "all",
+                    active: !currentTag && currentTab === "all",
                     href: "/?tab=all",
                   },
                 ];
