@@ -32,13 +32,17 @@ export default component$(() => {
     user: undefined,
   } as EndpointData);
   useContextProvider(SessionContext, session);
-  resource.promise.then((data: any) => {
-    // Security(minor ?): By doing this, cause user being serialized including token
-    session.user = data?.user;
-  })
   return (
     <Host>
-      <Header />
+      <Resource
+        resource={resource}
+        onResolved={(data) => {
+          session.user = data?.user;
+          return (
+            <Header />
+          );
+        }}
+      />
       <main>
         <Slot />
       </main>
