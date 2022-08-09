@@ -20,7 +20,7 @@ export const onPost: RequestHandler = async ({ request, response }) => {
 
   const jwt = getJwtString(result.user);
   response.headers.set("Set-Cookie", `jwt=${jwt}; Path=/; HttpOnly`);
-  response.redirect("/", 302);
+  throw response.redirect("/", 302);
 };
 
 export default component$(() => {

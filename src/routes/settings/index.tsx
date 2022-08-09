@@ -19,8 +19,7 @@ export const onGet: RequestHandler<EndpointData> = async ({
 }) => {
   const { user } = getSession(request.headers.get("cookie"));
   if (!user) {
-    response.redirect("/login", 302);
-    return;
+    throw response.redirect("/login", 302);
   }
   return {
     user,
@@ -30,8 +29,7 @@ export const onGet: RequestHandler<EndpointData> = async ({
 export const onPost: RequestHandler = async ({ request, response }) => {
   const { user } = getSession(request.headers.get("cookie"));
   if (!user) {
-    response.redirect("/login", 302);
-    return;
+    throw response.redirect("/login", 302);
   }
   const formData = await request.formData();
   const result = await api.put(
@@ -58,7 +56,7 @@ export const onPost: RequestHandler = async ({ request, response }) => {
   const newUser = JSON.stringify(result.user);
   const jwt = Buffer.from(newUser).toString("base64");
   response.headers.set("Set-Cookie", `jwt=${jwt}; Path=/; HttpOnly`);
-  response.redirect(`/profile/@${result.user.username}`, 302);
+  throw response.redirect(`/profile/@${result.user.username}`, 302);
 };
 
 export default component$(() => {

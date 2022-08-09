@@ -8,7 +8,7 @@ export const onGet: RequestHandler = async ({ request, response }) => {
   const { user } = getSession(request.headers.get("cookie"));
   const isAuthenticated = !!user;
   if (isAuthenticated) {
-    response.redirect("/", 302);
+    throw response.redirect("/", 302);
   }
   return {};
 };
@@ -30,7 +30,7 @@ export const onPost: RequestHandler = async ({ request, response }) => {
   const jwt = getJwtString(result.user);
   response.headers.set("Set-Cookie", `jwt=${jwt}; Path=/; HttpOnly`);
   // FIXME: tried response.redirect('/', 200), not work
-  response.redirect("/", 302);
+  throw response.redirect("/", 302);
 };
 
 export default component$(() => {

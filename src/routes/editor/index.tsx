@@ -7,8 +7,7 @@ import { Form, getFormData } from "./_form";
 export const onGet: RequestHandler = async ({ request, response }) => {
   const { user } = getSession(request.headers.get("cookie"));
   if (!user) {
-    response.redirect("/login", 302);
-    return;
+    throw response.redirect("/login", 302);
   }
   return {
     user,
@@ -19,8 +18,7 @@ export const onPost: RequestHandler = async ({ request, response }) => {
   const formData = await request.formData();
   const { user } = getSession(request.headers.get("cookie"));
   if (!user) {
-    response.redirect("/login", 302);
-    return;
+    throw response.redirect("/login", 302);
   }
   const result = await api.post(
     "articles",
@@ -34,7 +32,7 @@ export const onPost: RequestHandler = async ({ request, response }) => {
   if (result.errors) {
     return { errors: result.errors };
   }
-  response.redirect(`article/${result.article.slug}`, 302);
+  throw response.redirect(`article/${result.article.slug}`, 302);
 };
 
 export default component$(() => {

@@ -18,5 +18,5 @@ export const onPost: RequestHandler = async ({ request, params, response }) => {
     // TODO: how to deal this?
     throw new Error("not implement");
   }
-  return response.redirect(`/article/${params.slug}`, 303);
+  throw response.redirect(`/article/${params.slug}`, 303);
 };

@@ -20,8 +20,7 @@ export const onGet: RequestHandler<EndpointData> = async ({
 }) => {
   const { user } = getSession(request.headers.get("cookie"));
   if (!user) {
-    response.redirect("/login", 302);
-    return;
+    throw response.redirect("/login", 302);
   }
   const { article } = await api.get(`articles/${params.slug}`);
   // FIXME: check if article author is current user
@@ -35,8 +34,7 @@ export const onPut: RequestHandler = async ({ params, request, response }) => {
   const formData = await request.formData();
   const { user } = getSession(request.headers.get("cookie"));
   if (!user) {
-    response.redirect("/login", 302);
-    return;
+    throw response.redirect("/login", 302);
   }
   const result = await api.put(
     `articles/${params.slug}`,
@@ -50,7 +48,7 @@ export const onPut: RequestHandler = async ({ params, request, response }) => {
     // TODO: error not consumed yet
     return { errors: result.errors };
   }
-  response.redirect(`article/${result.article.slug}`, 302);
+  throw response.redirect(`article/${result.article.slug}`, 302);
 };
 
 export default component$(() => {
