@@ -1,7 +1,7 @@
 import {
   component$,
   Host,
-  Resource,
+  useClientEffect$,
   Slot,
   useContextProvider,
   useStore,
@@ -20,27 +20,34 @@ export interface EndpointData {
   user?: components["schemas"]["User"];
 }
 
-export const onGet: RequestHandler<EndpointData> = async ({ request }) => {
+// TODO: layout's endpoint not properly supported yet
+export const onGet: RequestHandler<EndpointData> = ({ request }) => {
   const { user } = getSession(request.headers.get("cookie"));
   return {
     user,
   };
 };
+
 export default component$(() => {
   const resource = useEndpoint<typeof onGet>();
   const session = useStore({
+    loaded: false,
     user: undefined,
-  } as EndpointData);
+  } as any);
   useContextProvider(SessionContext, session);
+  useClientEffect$(() => {
+    resource.promise
+      .then((data: any) => {
+        session.user = data?.user;
+        session.loaded = true;
+      })
+      .catch((e: any) => {
+        session.loaded = true;
+      });
+  });
   return (
     <Host>
-      <Resource
-        resource={resource}
-        onResolved={(data) => {
-          session.user = data?.user;
-          return <Header />;
-        }}
-      />
+      <Header />
       <main>
         <Slot />
       </main>

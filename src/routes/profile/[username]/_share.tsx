@@ -35,7 +35,7 @@ export interface EndpointData {
 export const onProfileGet: RequestHandler<EndpointData> = async ({
   request,
   params,
-  url
+  url,
 }) => {
   const isFavoritesTab = /\/favorites$/.test(url.toString());
   const username = params.username.replace(/^@/, "");

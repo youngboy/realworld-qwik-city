@@ -1,13 +1,13 @@
 export function toBase64(str: string) {
   // Netlify not support Buffer yet
   // Buffer.from(str).toString('base64')
-  return btoa(str)
+  return btoa(str);
 }
 
 export function fromBase64(str: string) {
   // Netlify not support Buffer yet
   // Buffer.from(str, "base64").toString("utf-8")
-  return atob(str)
+  return atob(str);
 }
 
 export function getJwtString(user: any) {
@@ -17,7 +17,6 @@ export function getJwtString(user: any) {
 }
 
 export function getJwtObj(cookies: any) {
-  const jwt =
-    cookies.jwt && fromBase64(cookies.jwt);
+  const jwt = cookies.jwt && fromBase64(cookies.jwt);
   return jwt ? JSON.parse(jwt) : null;
 }

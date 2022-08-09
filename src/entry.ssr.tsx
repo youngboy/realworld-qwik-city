@@ -10,6 +10,11 @@ export default function (opts: RenderToStreamOptions) {
   // Pass in the manifest that was generated from the client build
   return renderToStream(<Root />, {
     manifest,
+    streaming: {
+      inOrder: {
+        strategy: "auto",
+      },
+    },
     ...opts,
   });
 }

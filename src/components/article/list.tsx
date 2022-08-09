@@ -6,7 +6,7 @@ interface IArticleListProps {
   articles: components["schemas"]["Article"][];
 }
 export default component$((props: IArticleListProps) => {
-  if (props.articles.length < 1) {
+  if (props.articles?.length < 1) {
     return <div class="article-preview">No articles are here... yet.</div>;
   }
 

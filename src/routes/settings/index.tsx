@@ -55,7 +55,7 @@ export const onPost: RequestHandler = async ({ request, response }) => {
   }
 
   const newUser = JSON.stringify(result.user);
-  const jwt = toBase64(newUser)
+  const jwt = toBase64(newUser);
   response.headers.set("Set-Cookie", `jwt=${jwt}; Path=/; HttpOnly`);
   throw response.redirect(`/profile/@${result.user.username}`, 302);
 };
