@@ -8,6 +8,7 @@ import { components } from "~/libs/api-schema";
 import * as api from "~/libs/api";
 import { getSession } from "~/libs/getSession";
 import { post } from "~/libs/ajax";
+import { toBase64 } from "~/libs/getJwt";
 
 export interface EndpointData {
   user: components["schemas"]["User"];
@@ -54,7 +55,7 @@ export const onPost: RequestHandler = async ({ request, response }) => {
   }
 
   const newUser = JSON.stringify(result.user);
-  const jwt = Buffer.from(newUser).toString("base64");
+  const jwt = toBase64(newUser)
   response.headers.set("Set-Cookie", `jwt=${jwt}; Path=/; HttpOnly`);
   throw response.redirect(`/profile/@${result.user.username}`, 302);
 };

@@ -4,6 +4,7 @@ dist
 lib
 server
 functions/**/*.js
+netlify/
 
 # Development
 node_modules
@@ -37,3 +38,5 @@ lerna-debug.log*
 # Yarn
 .yarn/*
 !.yarn/releases
+# Local Netlify folder
+.netlify

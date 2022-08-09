@@ -19,8 +19,7 @@ export interface EndpointData {
   user?: components["schemas"]["User"];
 }
 
-export const onGet: RequestHandler<EndpointData> = async ({ request }) => {
-  const url = new URL(request.url);
+export const onGet: RequestHandler<EndpointData> = async ({ url, request }) => {
   const { user } = getSession(request.headers.get("cookie"));
   const [{ articles, pages }, { tags }] = await Promise.all([
     fetchArticles(url.search, user?.token),

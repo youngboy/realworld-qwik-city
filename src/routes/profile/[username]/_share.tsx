@@ -35,9 +35,9 @@ export interface EndpointData {
 export const onProfileGet: RequestHandler<EndpointData> = async ({
   request,
   params,
+  url
 }) => {
-  const url = new URL(request.url);
-  const isFavoritesTab = /\/favorites$/.test(request.url);
+  const isFavoritesTab = /\/favorites$/.test(url.toString());
   const username = params.username.replace(/^@/, "");
   const { user } = getSession(request.headers.get("cookie"));
 
