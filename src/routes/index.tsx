@@ -2,7 +2,7 @@ import { component$, Host, Resource } from "@builder.io/qwik";
 import {
   useEndpoint,
   DocumentHead,
-  EndpointHandler,
+  RequestHandler,
   useLocation,
 } from "@builder.io/qwik-city";
 import ArticleList from "~/components/article/list";
@@ -19,7 +19,7 @@ export interface EndpointData {
   user?: components["schemas"]["User"];
 }
 
-export const onGet: EndpointHandler<EndpointData> = async ({ request }) => {
+export const onGet: RequestHandler<EndpointData> = async ({ request }) => {
   const url = new URL(request.url);
   const { user } = getSession(request.headers.get("cookie"));
   const [{ articles, pages }, { tags }] = await Promise.all([

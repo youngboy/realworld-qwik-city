@@ -1,7 +1,7 @@
 import { component$, Resource, useStore } from "@builder.io/qwik";
 import {
   DocumentHead,
-  EndpointHandler,
+  RequestHandler,
   useEndpoint,
 } from "@builder.io/qwik-city";
 import { marked } from "marked";
@@ -18,7 +18,7 @@ export interface EndpointData {
   user?: components["schemas"]["User"];
 }
 
-export const onGet: EndpointHandler<EndpointData> = async ({
+export const onGet: RequestHandler<EndpointData> = async ({
   request,
   params,
 }) => {

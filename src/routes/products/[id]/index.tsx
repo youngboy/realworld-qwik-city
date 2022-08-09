@@ -2,7 +2,7 @@ import { Resource, component$, Host, useStore } from "@builder.io/qwik";
 import {
   useEndpoint,
   useLocation,
-  EndpointHandler,
+  RequestHandler,
   DocumentHead,
 } from "@builder.io/qwik-city";
 import os from "os";
@@ -84,7 +84,7 @@ export const head: DocumentHead<ProductData | null> = ({ data }) => {
   };
 };
 
-export const onGet: EndpointHandler<EndpointData> = async ({
+export const onGet: RequestHandler<EndpointData> = async ({
   params,
   response,
 }) => {

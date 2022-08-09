@@ -1,4 +1,4 @@
-import ProfileComponent, { onProfileGet, profileHead } from "./_share";
+import ProfileComponent, { onProfileGet, profileHead } from "../_share";
 
 export const onGet = onProfileGet;
 

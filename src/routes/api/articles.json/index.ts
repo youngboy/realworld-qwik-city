@@ -1,9 +1,9 @@
-import type { EndpointHandler } from "@builder.io/qwik-city";
+import type { RequestHandler } from "@builder.io/qwik-city";
 import { components } from "~/libs/api-schema";
 import { getSession } from "~/libs/getSession";
-import { fetchArticles } from "./_fetchArticles";
+import { fetchArticles } from "../_fetchArticles";
 
-export const onGet: EndpointHandler<
+export const onGet: RequestHandler<
   {
     articles: components["schemas"]["Article"][];
     pages: number;

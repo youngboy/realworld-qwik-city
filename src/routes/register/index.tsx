@@ -1,9 +1,9 @@
 import { component$ } from "@builder.io/qwik";
-import { DocumentHead, EndpointHandler } from "@builder.io/qwik-city";
+import { DocumentHead, RequestHandler } from "@builder.io/qwik-city";
 import * as api from "~/libs/api";
 import { getJwtString } from "~/libs/getJwt";
 
-export const onPost: EndpointHandler = async ({ request, response }) => {
+export const onPost: RequestHandler = async ({ request, response }) => {
   const formData = await request.formData();
   const result = await api.post("users", {
     user: {

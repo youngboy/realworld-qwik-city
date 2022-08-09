@@ -6,7 +6,7 @@ import {
   useContextProvider,
   useStore,
 } from "@builder.io/qwik";
-import { EndpointHandler, useEndpoint } from "@builder.io/qwik-city";
+import { RequestHandler, useEndpoint } from "@builder.io/qwik-city";
 import { components } from "~/libs/api-schema";
 import { SessionContext } from "~/libs/context";
 import { getSession } from "~/libs/getSession";
@@ -20,7 +20,7 @@ export interface EndpointData {
   user?: components["schemas"]["User"];
 }
 
-export const onGet: EndpointHandler<EndpointData> = async ({ request }) => {
+export const onGet: RequestHandler<EndpointData> = async ({ request }) => {
   const { user } = getSession(request.headers.get("cookie"));
   return {
     user,

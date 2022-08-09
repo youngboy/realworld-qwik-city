@@ -1,12 +1,8 @@
-import type { EndpointHandler } from "@builder.io/qwik-city";
+import type { RequestHandler } from "@builder.io/qwik-city";
 import * as api from "~/libs/api";
 import { getSession } from "~/libs/getSession";
 
-export const onPost: EndpointHandler = async ({
-  request,
-  params,
-  response,
-}) => {
+export const onPost: RequestHandler = async ({ request, params, response }) => {
   const formData = await request.formData();
   const { user } = getSession(request.headers.get("cookie"));
   const result = await api.post(

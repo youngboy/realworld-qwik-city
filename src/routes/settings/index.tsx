@@ -1,7 +1,7 @@
 import { component$, Resource, $ } from "@builder.io/qwik";
 import {
   DocumentHead,
-  EndpointHandler,
+  RequestHandler,
   useEndpoint,
 } from "@builder.io/qwik-city";
 import { components } from "~/libs/api-schema";
@@ -13,7 +13,7 @@ export interface EndpointData {
   user: components["schemas"]["User"];
 }
 
-export const onGet: EndpointHandler<EndpointData> = async ({
+export const onGet: RequestHandler<EndpointData> = async ({
   request,
   response,
 }) => {
@@ -27,7 +27,7 @@ export const onGet: EndpointHandler<EndpointData> = async ({
   };
 };
 
-export const onPost: EndpointHandler = async ({ request, response }) => {
+export const onPost: RequestHandler = async ({ request, response }) => {
   const { user } = getSession(request.headers.get("cookie"));
   if (!user) {
     response.redirect("/login", 302);

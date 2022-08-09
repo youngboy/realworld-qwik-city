@@ -10,7 +10,7 @@
 import { component$, Resource, useContext, useStore } from "@builder.io/qwik";
 import {
   DocumentHead,
-  EndpointHandler,
+  RequestHandler,
   useEndpoint,
   useLocation,
 } from "@builder.io/qwik-city";
@@ -32,7 +32,7 @@ export interface EndpointData {
   pages: number;
 }
 
-export const onProfileGet: EndpointHandler<EndpointData> = async ({
+export const onProfileGet: RequestHandler<EndpointData> = async ({
   request,
   params,
 }) => {

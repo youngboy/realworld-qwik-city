@@ -1,19 +1,19 @@
 import { component$, Resource } from "@builder.io/qwik";
 import {
   DocumentHead,
-  EndpointHandler,
+  RequestHandler,
   useEndpoint,
 } from "@builder.io/qwik-city";
 import * as api from "~/libs/api";
 import { components } from "~/libs/api-schema";
 import { getSession } from "~/libs/getSession";
-import { Form, getFormData } from "./_form";
+import { Form, getFormData } from "../_form";
 
 export interface EndpointData {
   article: components["schemas"]["Article"];
 }
 
-export const onGet: EndpointHandler<EndpointData> = async ({
+export const onGet: RequestHandler<EndpointData> = async ({
   request,
   response,
   params,
@@ -31,7 +31,7 @@ export const onGet: EndpointHandler<EndpointData> = async ({
   };
 };
 
-export const onPut: EndpointHandler = async ({ params, request, response }) => {
+export const onPut: RequestHandler = async ({ params, request, response }) => {
   const formData = await request.formData();
   const { user } = getSession(request.headers.get("cookie"));
   if (!user) {
