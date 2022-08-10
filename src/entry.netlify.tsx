@@ -4,5 +4,12 @@ import { qwikCity } from "@builder.io/qwik-city/middleware/netlify-edge";
 const qwikCityHandler = qwikCity(render);
 
 export default (re: any, op: any) => {
-  return qwikCityHandler(re, op);
+  const request = new Proxy({
+    headers: re.headers
+  }, {
+    get(target: any, prop) {
+      return target[prop] || re[prop]
+    }
+  })
+  return qwikCityHandler(request, op);
 };
