@@ -5,7 +5,8 @@ const qwikCityHandler = qwikCity(render);
 
 export default (re: any, op: any) => {
   const request = new Proxy({
-    headers: re.headers
+    headers: re.headers,
+    log: op.log
   }, {
     get(target: any, prop) {
       return target[prop] || re[prop]

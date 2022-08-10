@@ -21,6 +21,8 @@ export interface EndpointData {
 
 export const onGet: RequestHandler<EndpointData> = async ({ url, request }) => {
   const { user } = getSession(request.headers.get("cookie"));
+  // @ts-ignore
+  request.log(url.origin)
   return async () => {
     const [{ articles, pages }, { tags }] = await Promise.all([
       fetchArticles(url.search, user?.token),
