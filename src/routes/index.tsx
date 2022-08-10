@@ -21,12 +21,21 @@ export interface EndpointData {
 
 export const onGet: RequestHandler<EndpointData> = async ({ url, request }) => {
   const { user } = getSession(request.headers.get("cookie"));
-  // @ts-ignore
-  request.log(url.origin)
   return async () => {
     const [{ articles, pages }, { tags }] = await Promise.all([
       fetchArticles(url.search, user?.token),
-      fetch(`${url.origin}/api/tags.json`).then((r) => r.json()),
+      fetch(`${url.origin}/api/tags.json`)
+        .then((r) => {
+          return r.text().then(t => {
+            // @ts-ignore
+            request.log(t)
+            try {
+              return JSON.parse(t)
+            } catch (e) {
+              return {}
+            }
+          })
+        })
     ]);
 
     return {
